@@ -9,9 +9,9 @@
 #include "platform.h"
 
 #ifdef WIN
-#pragma comment(lib, "libcurl.dll.lib")
-#pragma comment(lib, "libcrypto.lib")
-#pragma warning(disable : 4996) 
+	#pragma comment(lib, "libcurl.dll.lib")
+	#pragma comment(lib, "libcrypto.lib")
+	#pragma warning(disable : 4996) 
 #endif
 
 CURL* g_curl;
