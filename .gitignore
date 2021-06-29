@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+*.swp
+
+/bin
+/bin_int
+/.vscode
