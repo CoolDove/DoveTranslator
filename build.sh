@@ -16,6 +16,6 @@ g++ \
 -I ${PATH_ROOT}/DoveTranslator/vendor/include 
 
 echo linking...
-g++ -g *.o -o ${PATH_ROOT}/bin/${OUTPUT_NAME} -lcurl -lcrypto
+g++ -g *.o -o ${PATH_ROOT}/bin/linux/${OUTPUT_NAME} -lcurl -lcrypto
 
 cd ${PATH_ROOT}

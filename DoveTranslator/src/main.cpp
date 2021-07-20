@@ -8,15 +8,14 @@
 #include "json/json.h"
 #include "platform.h"
 
-#ifdef WIN
-	#pragma comment(lib, "libcurl.dll.lib")
-	#pragma comment(lib, "libcrypto.lib")
-	#pragma warning(disable : 4996) 
-#endif
+// #ifdef WIN
+// 	#pragma comment(lib, "libcurl.dll.lib")
+// 	#pragma comment(lib, "libcrypto.lib")
+// 	#pragma warning(disable : 4996) 
+// #endif
 
 CURL* g_curl;
 std::vector<std::string> g_args_query;
-
 std::string g_appid		 = "";
 std::string g_secret_key = "";
 std::string g_from		 = "auto";
@@ -129,7 +128,7 @@ std::string fn_build_query() {
 }
 
 void fn_init_account(std::string& _appid, std::string& _secret_key) {
-	std::string path = get_config_path();
+	PATH_STRING path = get_config_path();
 
 	std::cout << "Dove Translator initializing: " << std::endl;
 	std::cout << "--Input your AppID: ";
@@ -149,7 +148,7 @@ void fn_init_account(std::string& _appid, std::string& _secret_key) {
 }
 
 void fn_read_config(std::string& _appid, std::string& _secret_key) {
-	std::string path = get_config_path();
+	PATH_STRING path = get_config_path();
 
 	std::ifstream ifs(path);
 	if (ifs)
@@ -159,7 +158,9 @@ void fn_read_config(std::string& _appid, std::string& _secret_key) {
 	}
 	else
 	{
+		printf("create recore\n");
 		fn_init_account(_appid, _secret_key);
+		printf("inited\n");
 	}
 	ifs.close();
 }
@@ -188,8 +189,7 @@ Json::Value fn_get_root_from_string(const std::string& source) {
 	Json::Value json_root;
 	Json::String err;
 
-	json_reader->parse(&source[0], &source[source.length() - 1], &json_root,
-					   &err);
+	json_reader->parse(&source[0], &source[source.length() - 1], &json_root, &err);
 
 	delete json_reader;
 	return json_root;
@@ -217,9 +217,15 @@ size_t fn_on_write_data(char* ptr, size_t size, size_t nmemb, void* stream) {
 }
 
 int main(int argc, char* argv[]) {
+	#ifdef WIN
+	UINT console_cp_origin = GetConsoleOutputCP();
+	SetConsoleOutputCP(65001);
+	#endif
+
 	fn_read_config(g_appid, g_secret_key);
 
-	if (argc < 2) fn_help();
+	if (argc < 2) 
+		fn_help();
 
 	fn_read_args(argc, argv);
 
@@ -284,5 +290,10 @@ int main(int argc, char* argv[]) {
 		/* always cleanup */
 		curl_easy_cleanup(g_curl);
 	}
+
+	#ifdef WIN
+	SetConsoleOutputCP(console_cp_origin);
+	#endif
+
 	return 0;
 }
