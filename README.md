@@ -4,4 +4,4 @@ A simple command line translating tool using Baidu API. But need to set up your 
 ## How to use
 -help or -h for help.<br>
 -init for init appid and secret key.<br>
-baidu to register 百度翻译API.<br>
+baidu to register 百度翻译.<br>
