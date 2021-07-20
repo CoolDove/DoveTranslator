@@ -6,6 +6,10 @@ PATH_ROOT=`pwd`
 PATH_INT_BIN=${PATH_ROOT}/bin_int
 OUTPUT_NAME=dt
 
+mkdir ${PATH_ROOT}/bin_int 2>/dev/null
+mkdir ${PATH_ROOT}/bin 2>/dev/null
+mkdir ${PATH_ROOT}/bin/linux 2>/dev/null
+
 echo building...
 
 cd ${PATH_INT_BIN}
